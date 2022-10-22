@@ -1,0 +1,12 @@
+﻿cl : командная строка warning D9035: использование параметра "Gm" нежелательно, он будет удален в следующих выпусках
+  tbitfield.cpp
+E:\UNN\A_SD\Labs\mp2-lab1-set\src\tbitfield.cpp(18,23): warning C4018: <: несоответствие типов со знаком и без знака
+E:\UNN\A_SD\Labs\mp2-lab1-set\src\tbitfield.cpp(27,23): warning C4018: <: несоответствие типов со знаком и без знака
+E:\UNN\A_SD\Labs\mp2-lab1-set\src\tbitfield.cpp(95,23): warning C4018: <: несоответствие типов со знаком и без знака
+E:\UNN\A_SD\Labs\mp2-lab1-set\src\tbitfield.cpp(105,24): warning C4018: <: несоответствие типов со знаком и без знака
+E:\UNN\A_SD\Labs\mp2-lab1-set\src\tbitfield.cpp(131,23): warning C4018: <: несоответствие типов со знаком и без знака
+E:\UNN\A_SD\Labs\mp2-lab1-set\src\tbitfield.cpp(149,23): warning C4018: <: несоответствие типов со знаком и без знака
+E:\UNN\A_SD\Labs\mp2-lab1-set\src\tbitfield.cpp(158,23): warning C4018: <: несоответствие типов со знаком и без знака
+E:\UNN\A_SD\Labs\mp2-lab1-set\src\tbitfield.cpp(177,14): warning C4018: <: несоответствие типов со знаком и без знака
+E:\UNN\A_SD\Labs\mp2-lab1-set\src\tbitfield.cpp(189,23): warning C4018: <: несоответствие типов со знаком и без знака
+  bitfield.vcxproj -> E:\UNN\A_SD\Labs\mp2-lab1-set\sln\vc10\Debug\bitfield.lib
