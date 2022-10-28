@@ -113,23 +113,35 @@ int TBitField::operator==(const TBitField &bf) const // сравнение
 
 int TBitField::operator!=(const TBitField &bf) const // сравнение
 {
-	return !(*this == bf);
+	if (this->BitLen == bf.BitLen)
+	{
+		for (size_t i = 0; i < this->MemLen; i++)
+			if (this->pMem[i] != bf.pMem[i])
+				return 1;
+		return 0;
+	}
+
+	return 1;
 }
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-	int minMemLen = MemLen;
 	int maxBitLen = BitLen;
-
-	if (MemLen > bf.BitLen)
-		minMemLen = bf.MemLen;
 
 	if (BitLen < bf.BitLen)
 		maxBitLen = bf.BitLen;
 
 	TBitField tmp(maxBitLen);
-	for (size_t i = 0; i < minMemLen; i++)
+	for (size_t i = 0; i < std::min(MemLen, bf.MemLen); i++)
 		tmp.pMem[i] = pMem[i] | bf.pMem[i];
+
+	if (MemLen < bf.MemLen)
+		for (size_t i = std::min(MemLen, bf.MemLen); i < MemLen; i++)
+			tmp.pMem[i] = bf.pMem[i];
+	else
+		for (size_t i = std::min(MemLen, bf.MemLen); i < MemLen; i++)
+			tmp.pMem[i] = this->pMem[i];
+		
 		
 	return tmp;
 }
@@ -172,14 +184,12 @@ istream &operator>>(istream &istr, TBitField &bf) // ввод
 	int index = bf.GetLength() - 1;
 	while (index)
 	{
-		cout << "Enter Number:";
 		istr >> number;
 		if (number < bf.GetLength() && (bf.GetBit(number) == 1))
 		{
 			bf.SetBit(number);
 			index--;
 		}
-		cout << "error! try again!";
 	}
 	return istr;
 }
