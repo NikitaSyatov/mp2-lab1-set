@@ -11,12 +11,15 @@ TBitField::TBitField(int len)
 {
 	if (len <= 0)
 		throw exception("err");
-
-	this->BitLen = len;
-	this->MemLen = (len / (sizeof(TELEM) * 8)) + 1;
-	this->pMem = new TELEM[MemLen];
-	for (size_t i = 0; i < MemLen; i++)
-		this->pMem[i] = 0;
+	else
+	{
+		this->BitLen = len;
+		this->MemLen = (len / (sizeof(TELEM) * 8)) + 1;
+		this->pMem = new TELEM[MemLen];
+		for (size_t i = 0; i < MemLen; i++)
+			this->pMem[i] = 0;
+	}
+	
 }
 
 TBitField::TBitField(const TBitField &bf) // конструктор копирования
@@ -73,7 +76,7 @@ int TBitField::GetBit(const int n) const // получить значение б
 	if (n >= 0 && n < this->BitLen)
 	{
 		int res = this->pMem[GetMemIndex(n)];
-		res &= (1 << (n & ((sizeof(TELEM) * 8) - 1)));
+		res &= GetMemMask(n);
 
 		return res;
 	}
@@ -131,15 +134,16 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 	if (BitLen < bf.BitLen)
 		maxBitLen = bf.BitLen;
 
+	size_t i = 0;
 	TBitField tmp(maxBitLen);
-	for (size_t i = 0; i < std::min(MemLen, bf.MemLen); i++)
+	for (; i < std::min(MemLen, bf.MemLen); i++)
 		tmp.pMem[i] = pMem[i] | bf.pMem[i];
-
+	
 	if (MemLen < bf.MemLen)
-		for (size_t i = std::min(MemLen, bf.MemLen); i < MemLen; i++)
+		for (; i < std::max(MemLen, bf.MemLen); i++)
 			tmp.pMem[i] = bf.pMem[i];
 	else
-		for (size_t i = std::min(MemLen, bf.MemLen); i < MemLen; i++)
+		for (; i < std::max(MemLen, bf.MemLen); i++)
 			tmp.pMem[i] = this->pMem[i];
 		
 		

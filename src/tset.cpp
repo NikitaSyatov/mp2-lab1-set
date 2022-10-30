@@ -124,14 +124,12 @@ istream &operator>>(istream &istr, TSet &s) // ввод
     int index = s.GetMaxPower() - 1;
     while (index)
     {
-        cout << "Enter Number:";
         istr >> number;
         if (number < s.GetMaxPower() && (s.IsMember(number) == 0))
         {
             s.InsElem(number);
             index--;
         }
-        cout << "error! try again!";
     }
     return istr;
 }
