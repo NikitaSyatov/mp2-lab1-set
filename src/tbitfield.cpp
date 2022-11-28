@@ -131,23 +131,17 @@ int TBitField::operator!=(const TBitField &bf) const // сравнение
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-	int maxBitLen = BitLen;
-
-	if (BitLen < bf.BitLen)
-		maxBitLen = bf.BitLen;
-
 	size_t i = 0;
-	TBitField tmp(maxBitLen);
+	TBitField tmp(std::max(BitLen, bf.BitLen));
 	for (; i < std::min(MemLen, bf.MemLen); i++)
 		tmp.pMem[i] = pMem[i] | bf.pMem[i];
 	
 	if (MemLen < bf.MemLen)
-		for (; i < std::max(MemLen, bf.MemLen); i++)
+		for (; i < bf.MemLen; i++)
 			tmp.pMem[i] = bf.pMem[i];
 	else
-		for (; i < std::max(MemLen, bf.MemLen); i++)
+		for (; i < MemLen; i++)
 			tmp.pMem[i] = this->pMem[i];
-		
 		
 	return tmp;
 }
@@ -194,8 +188,8 @@ istream &operator>>(istream &istr, TBitField &bf) // ввод
 		if (number < bf.GetLength() && (bf.GetBit(number) == 1))
 		{
 			bf.SetBit(number);
-			index--;
 		}
+		index--;
 	}
 	return istr;
 }
@@ -205,5 +199,7 @@ ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
 	for (size_t i = 0; i < bf.GetLength(); i++)
 		if (bf.GetBit(i))
 			ostr << i << ", ";
+		else
+			ostr << 0 << ", ";
 	return ostr;
 }

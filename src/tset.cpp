@@ -128,8 +128,8 @@ istream &operator>>(istream &istr, TSet &s) // ввод
         if (number < s.GetMaxPower() && (s.IsMember(number) == 0))
         {
             s.InsElem(number);
-            index--;
         }
+        index--;
     }
     return istr;
 }
